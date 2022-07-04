@@ -69,10 +69,35 @@ const inputClosePin = document.querySelector('.form-input-pin');
 
 
 
+// =====================================================================
+
+const formatMovementDate = function(date){
+
+  const calcDaysPassed = (date1, date2) => Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const dayPassed = calcDaysPassed(new Date(), date);
+  console.log(dayPassed);
+
+   if(dayPassed === 0) return 'Today';
+   if(dayPassed === 1) return 'Yesterday';
+   if(dayPassed <= 7) return `${dayPassed} days ago`;
+   else{
+    const day = `${date.getDate()}`.padStart(2,0);
+  const month = `${date.getMonth()}`.padStart(2,0);
+  const year = date.getFullYear();
+ 
+ return `${day}/${month}/${year}`;
+   }
+
+  
+
+}
+
+
 // ====================================================================
 
 
-const displayMovements = function(acc,sort = false){
+const displayMovements = function(acc, sort = false){
 
   containerMovements.innerHTML = '';
 
@@ -82,11 +107,9 @@ const displayMovements = function(acc,sort = false){
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const date = new Date(acc.movementsDates[i]);
-    const day = `${date.getDate()}`.padStart(2,0);
-    const month = `${date.getMonth()}`.padStart(2,0);
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}`;
-
+   
+    const displayDate = formatMovementDate(date);
+    
     const html = `
     <div class="movements-row">
      <div class="movements-type movements-type-${type}">${i + 1} ${type}</div>
