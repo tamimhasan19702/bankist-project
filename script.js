@@ -194,11 +194,6 @@ labelSumOut.textContent =  formatCurr(totalWithdrawUSD,acc.locale,acc.currency);
 // ===========================================================================
 
 
-let currentAccount; 
-
-
-
-
 const now = new Date();
 const options = {
   hour: 'numeric',
@@ -239,11 +234,14 @@ const startLogOutTimer = function(){
   }
   
   
-  let time = 10;
+  let time = 120;
 
    tick();
   const timer = setInterval(tick,1000);
+  return timer;
 };
+
+let currentAccount , timer;
 
 
 btnLogin.addEventListener('click', (e) => {
@@ -286,7 +284,8 @@ labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
-   startLogOutTimer();
+    if(timer) clearInterval(timer);
+   timer = startLogOutTimer();
 
     // display movements
   updateUi(currentAccount);
