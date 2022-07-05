@@ -327,6 +327,10 @@ receiverAcc.movementsDates.push(new Date().toISOString());
 //  -----update the ui
 
  updateUi(currentAccount);
+
+
+ clearInterval(timer);
+ timer = startLogOutTimer();
 }
  
  }) 
@@ -347,6 +351,9 @@ btnClose.addEventListener('click',()=>{
   }
 
   inputCloseUsername.value = inputClosePin.value = '';  
+  
+  clearInterval(timer);
+ timer = startLogOutTimer();
 })
 
 // =======================================================
@@ -368,6 +375,8 @@ btnLoan.addEventListener('click', (e) => {
 
   }
   inputLoanAmount.value = '';
+  clearInterval(timer);
+ timer = startLogOutTimer();
 })
 
 // ========================================================
@@ -377,6 +386,8 @@ btnSort.addEventListener('click' , (e) => {
   e.preventDefault();
   displayMovements(currentAccount, !sorted);
   sorted = !sorted;
+  clearInterval(timer);
+ timer = startLogOutTimer();
 })
 
 
