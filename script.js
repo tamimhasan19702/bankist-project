@@ -214,8 +214,36 @@ console.log(locale);
 labelDate.textContent = new Intl.DateTimeFormat('en-US', options).format(now);
 
 
+// ========================================
 
+const startLogOutTimer = function(){
+  
+  const tick = function(){
 
+    const min = String(Math.trunc(time/60)).padStart(2,0);
+    
+    const sec = String(Math.trunc(time%60)).padStart(2,0);
+
+    labelTimer.textContent = `${min}:${sec}`; 
+ 
+    if(time === 0){
+      clearInterval(timer);
+
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+
+    }
+
+    time--;
+
+  }
+  
+  
+  let time = 10;
+
+   tick();
+  const timer = setInterval(tick,1000);
+};
 
 
 btnLogin.addEventListener('click', (e) => {
@@ -258,13 +286,15 @@ labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+   startLogOutTimer();
+
     // display movements
   updateUi(currentAccount);
   }
 
 })
 
-
+// ==============================================
 const updateUi = function(acc){
   displayMovements(acc);
   // display balance
@@ -362,9 +392,7 @@ labelBalance.addEventListener('click', () => {
 
 // ============================================================
 
-
-
-
+// =============================================================
 
 
 
