@@ -118,10 +118,11 @@ const displayMovements = function(acc, sort = false){
     </div>
     `;
 
-    containerMovements.insertAdjacentHTML('afterbegin', html)
+    containerMovements.insertAdjacentHTML('afterbegin', html);
 
  });
-} 
+
+};
 
 // ===========================================================================
 
@@ -188,10 +189,23 @@ let currentAccount;
 
 
 
+
+const now = new Date();
+const options = {
+  hour: 'numeric',
+  minute: 'numeric'
+}
+
+
+
+
+
+
+
+
+
 btnLogin.addEventListener('click', (e) => {
     e.preventDefault();
-    
-
 
    currentAccount =  accounts.find( acc => acc.username === inputLoginUsername.value);
    console.log(currentAccount);
@@ -303,7 +317,7 @@ btnLoan.addEventListener('click', (e) => {
 let sorted = false;
 btnSort.addEventListener('click' , (e) => {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 })
 
@@ -329,126 +343,3 @@ labelBalance.addEventListener('click', () => {
 
 
 
-
-// ============ side code =================================
-
-//  const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-// const euroToUsd = 1.1;
-// const totalDepositsUSD = movements
-//                          .filter(mov => mov > 0)
-//                          .map(mov => mov * euroToUsd)
-//                          .reduce((acc,mov) => acc + mov , 0);
-
-// console.log(totalDepositsUSD);
-
-// // const max = movements.reduce((acc,mov) => {
-// //   if(acc > mov){
-// //     return acc;
-// //   }else{
-// //     return mov;
-// //   }
-// // }, movements[0]);
-
-// // console.log(max);
-
-// // const calcAverageHumanAge = function(ages){
-          
-// //   const humanAge = ages.map( (age) => age <= 2 ? 2 * age : 16 + age * 4);
-
-
-// //   const adults = humanAge.filter( age => age > 18);
-
-
-// //   const average = adults.reduce((acc, age) => acc + age, 0)/adults.length;
-
-// // }
-
-// const calcAverageHumanAge = ages => ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4))
-//                                         .filter(age => age >= 18)
-//                                         .reduce((acc,age,i,arr) => acc + age /arr.length,0) 
-
-// calcAverageHumanAge([5,2,4,1,15,8,3]);
-
-// 1
-
-// const bankDepositSum = accounts
-//                           .flatMap(acc => acc.movements)
-//                           .filter(mov => mov > 0)
-//                           .reduce((acc, mov) => acc + mov , 0 );
-
-// console.log(bankDepositSum);
-
-
-// // 2
-
-// const numDeposits1000 = accounts
-//                         .flatMap(acc => acc.movements)
-//                         .reduce((count,curr) => (curr >= 1000 ? ++count : count), 0 );
-
-//                         console.log(numDeposits1000);
-
-// const numDeposits10002 = accounts
-//                          .flatMap(acc => acc.movements)
-//                          .filter( acc => acc >= 1000).length;
-
-//                     console.log(numDeposits10002);
-
-// // 3
-
-const dogs = [
-  {weight: 22, curfood: 250, owners: ['Alice', 'Bob']}, 
-  {weight: 8, curfood: 200, owners: ['Matilda']}, 
-  {weight: 13, curfood: 275, owners: ['Sarah', 'John']}, 
-  {weight: 32, curfood: 340, owners: ['Michel']}, 
-];
-
-// 1
-
-dogs.forEach((dog) =>{
-  dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28);
-  console.log(dog);
-})
-
-// 2
-
-dogs.forEach(dog => {
-  if(dog.owners.includes('Sarah')){
-   if(dog.curfood > dog.recommendedFood){
-    console.log('yeah her dog eating too much');
-   }else{
-    console.log('its eating okey')
-   }
-  }
-})
-
-// 3
-
-const ownerEatToomuch = dogs.filter( dog => dog.curfood > dog.recommendedFood).flatMap( dog => dog.owners);
-console.log(ownerEatToomuch);
-const ownerEatToolittle = dogs.filter( dog => dog.curfood < dog.recommendedFood).flatMap( dog => dog.owners);
-console.log(ownerEatToolittle);
-
-// 4
-
-console.log(`${ownerEatToomuch.join(' and ')} dogs eat too much, ${ownerEatToolittle.join(' and ')} dogs eat too little!`);
-
-
-// 5
-
-console.log(dogs.some(dog => dog.curfood === dog.recommendedFood));
-
-// 6
-
-console.log(dogs.some(dog => dog.curfood > (dog.recommendedFood * 0.90) && dog.curfood < (dog.recommendedFood * 1.10))) 
-
-// 7
-
-const checkEat = dog => dog.curfood > (dog.recommendedFood * 0.90) && dog.curfood < (dog.recommendedFood * 1.10);
-
-
-console.log(dogs.some(checkEat));
-
-console.log(dogs.filter(checkEat));
-
-const dogsCopy = dogs.slice().sort((a,b) => a.recommendedFood - b.recommendedFood)
